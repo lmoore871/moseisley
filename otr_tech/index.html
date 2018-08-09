@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link type="text/css" rel="stylesheet" href="styles/jsgrid.min.css" />
+<link type="text/css" rel="stylesheet" href="styles/jsgrid-theme.min.css" />
+<link rel="stylesheet" type="text/css" href="styles/style.css"/>
+<script type="text/javascript" src="jsgrid.min.js"></script>
+<style>
+</style>
+<script>
+  function randomString() {
+	var chars = "456789";
+	var string_length = 1;
+	var randomstring = '';
+	for (var i=0; i<string_length; i++) {
+		var rnum = Math.floor(Math.random() * chars.length);
+		randomstring += chars.substring(rnum,rnum+1);
+	}
+	document.randform.randomfield.value = randomstring;
+}
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark fixed-top navbar-dark">
+  <a class="navbar-brand" href="#"><img src="images/otr_logo.svg" class="img-fluid" width="100" height="100"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+     
+    </ul>
+  </div>  
+</nav>
+<main role="main" class="container" style="padding-top:100px;">
+     <form name="randform" class="formContainer">
+        <input type="button" value="Generate Random ID" onClick="randomString();">&nbsp;
+         <input type="text" name="randomfield" value="">
+    
+    </form>
+    <div id="jsGrid"></div>
+    
+     
+    </main>
+   
+<footer class="footer">
+      <div class="container">
+        <span class="text-muted">Place sticky footer content here.</span>
+      </div>
+    </footer>
+   
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+crossorigin="anonymous"></script>
+     <script type="text/javascript" src="scripts/jsgrid.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+    var clients = [
+        { "ID": 1, "Truck Type": 0, "Origin": "60463", "Destination": "60678", "Days": 0, "Availability": true },
+        { "ID": 2, "Truck Type": 1, "Origin": "60463", "Destination": "60678", "Days": 0,  "Availability": true },
+        { "ID": 3, "Truck Type": 2, "Origin": "60463", "Destination": "60678", "Days": 0, "Availability": true },
+        { "ID": 4,  "Truck Type": 3, "Origin": "60463", "Destination": "60678", "Days": 0,  "Availability": true },
+        
+    ];
+    
+      var dayOfWeek = [
+        { Day: "Monday", Id: 0 },
+        { Day: "Tuesday", Id: 1 },
+        { Day: "Wednesday", Id: 2 },
+        { Day: "Thursday", Id: 3},
+         { Day: "Friday", Id: 4},
+           { Day: "Saturday", Id: 5 },
+           { Day: "Sunday", Id: 6 }
+    ];
+        
+    var truckType = [
+        {Truck: "Flatbed", Id: 0},
+        {Truck: "Tanker", Id: 1},
+        {Truck: "Van", Id: 2},
+        {Truck: "Reffer", Id: 3},
+    ];
+
+       
+    
+    $("#jsGrid").jsGrid({
+        width: "100%",
+        height: "400px",
+ 
+        inserting: true,
+        editing: true,
+        sorting: true,
+        paging: true,
+ 
+        data: clients,
+ 
+        fields: [
+            { name: "ID", type: "number", width: 50, validate:{message: "Please provide unique ID", validator: function(value){return value >=5 }}},
+            { name: "Truck Type", type: "select", items: truckType, valueField: "Id", textField: "Truck", width: 120, validate: "required" },
+            { name: "Origin", type: "text", width: 100, validate: {message: "Origin: Please add 5 Digit Zip Code (60463)", validator: function(value){return value == 60463;}}},
+            { name: "Destination", type: "text", width: 100, validate:{message: "Destination: Please add 5 Digit Zip Code (60678)", validator: function(value) {return value == 60678;}} },
+            { name: "Days", type: "select", items: dayOfWeek, valueField: "Id", textField: "Day", width: 120, validate: "required" },
+            { name: "Availability", type: "checkbox", title: "Availability", sorting: false },
+            { type: "control" }
+        ]
+    });
+
+
+</script>
+</body>
+</html>
